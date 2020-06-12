@@ -132,14 +132,19 @@ def step_impl(context):
 @when(
     u'user enters Billing address"{ba_company}""{ba_city}""{ba_address1}""{ba_address2}""{ba_zip}""{ba_phone}""{ba_fax}"')
 def step_impl(context, ba_company, ba_city, ba_address1, ba_address2, ba_zip, ba_phone, ba_fax):
-    billadd = billingAddress.billingAddressClass(driver1)
-    billadd.enterCompany(ba_company)
-    billadd.enterCountry()
-    billadd.enterCity(ba_city)
-    billadd.address(ba_address1, ba_address2)
-    billadd.zip(ba_zip)
-    billadd.phoneFax(ba_phone, ba_fax)
-    billadd.ContniueBut()
+
+    if driver1.find_element_by_name('billing_address_id').text == 'New Address':
+      billadd = billingAddress.billingAddressClass(driver1)
+      billadd.enterCompany(ba_company)
+      billadd.enterCountry()
+      billadd.enterCity(ba_city)
+      billadd.address(ba_address1, ba_address2)
+      billadd.zip(ba_zip)
+      billadd.phoneFax(ba_phone, ba_fax)
+      billadd.ContniueBut()
+    else:
+        billadd = billingAddress.billingAddressClass(driver1)
+        billadd.ContniueBut()
 
 
 @when(u'user enters Shipping address')
